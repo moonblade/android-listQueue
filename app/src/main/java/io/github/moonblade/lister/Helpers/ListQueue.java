@@ -7,21 +7,25 @@ import java.util.ArrayList;
 import java.util.Queue;
 
 public class ListQueue {
-    ArrayDeque<ListItem> queue;
+    ArrayList<ListItem> queue;
 
-    public ListQueue(ArrayDeque<ListItem> queue) {
+    public ListQueue() {
+        this.queue = new ArrayList<>();
+    }
+
+    public ListQueue(ArrayList<ListItem> queue) {
         this.queue = queue;
     }
 
     public ListQueue(ListItem[] queue) {
-       this.queue = new ArrayDeque<>();
+       this.queue = new ArrayList<>();
        for (ListItem listItem: queue) {
            this.queue.add(listItem);
        }
     }
 
     public void add(ListItem listItem) {
-        queue.addFirst(listItem);
+        queue.add(0, listItem);
     }
 
     public boolean delete(ListItem listItem) {
@@ -33,7 +37,7 @@ public class ListQueue {
             this.queue.add(listItem);
     }
 
-    public Queue<ListItem> getQueue() {
+    public ArrayList<ListItem> getQueue() {
         return queue;
     }
 }

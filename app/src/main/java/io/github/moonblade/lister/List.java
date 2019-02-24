@@ -4,12 +4,20 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import io.github.moonblade.lister.Helpers.ListAdapter;
+import io.github.moonblade.lister.Helpers.ListItem;
+import io.github.moonblade.lister.Helpers.ListQueue;
+
 public class List extends AppCompatActivity {
+    RecyclerView recyclerView;
+    ListQueue listQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +26,15 @@ public class List extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        listQueue = new ListQueue();
+        listQueue.add(new ListItem("1"));
+        listQueue.add(new ListItem("2"));
+        listQueue.add(new ListItem("3"));
+        listQueue.add(new ListItem("4"));
+        listQueue.add(new ListItem("5"));
+        listQueue.add(new ListItem("6"));
+
+        createRecyclerViewList();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,6 +43,14 @@ public class List extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    private void createRecyclerViewList() {
+        recyclerView = (RecyclerView) findViewById(R.id.listView);
+        RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        RecyclerView.Adapter adapter = new ListAdapter(listQueue);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
