@@ -18,6 +18,7 @@ import io.github.moonblade.lister.Helpers.ListQueue;
 public class List extends AppCompatActivity {
     RecyclerView recyclerView;
     ListQueue listQueue;
+    RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +40,8 @@ public class List extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                listQueue.add(new ListItem((listQueue.getQueue().size()+1)+""));
+                adapter.notifyDataSetChanged();
             }
         });
     }
@@ -49,7 +50,7 @@ public class List extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.listView);
         RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter adapter = new ListAdapter(listQueue);
+        adapter = new ListAdapter(listQueue);
         recyclerView.setAdapter(adapter);
     }
 
